@@ -1,0 +1,384 @@
+/* General styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f4ed;
+    color: #333333;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+.container-2{
+    background-color: #ffffff;
+    border: 2px solid #e3dbdb;
+}
+header {
+    background-color: #000000;
+    border-bottom: 1px solid #eaeaea;
+    padding: 10px 0;
+}
+
+header h1 {
+    text-align: center;
+    font-size: 2.5em;
+    margin: 0;
+    color: #ffffff;
+}
+nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    background-color: #000000; /* Màu nền của thanh nav */
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+    padding: 0; /* Loại bỏ padding mặc định của danh sách */
+}
+
+nav a {
+    text-decoration: none;
+    color: #ffffff; /* Màu chữ */
+    padding: 10px 15px;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: #ff0000; /* Màu chữ khi hover */
+}
+.background{
+    text-align: center;
+}
+.dropdown {
+    position: relative;
+}
+.dropdown-content-2{
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a {
+    color: #333333; /* Màu chữ của các mục dropdown */
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1; /* Màu nền khi hover trên các mục dropdown */
+    color: #ff0000; /* Màu chữ khi hover trên các mục dropdown */
+}
+/* Search and filter section styles */
+.search-bar {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.search-bar input {
+    padding: 10px;
+    font-size: 1em;
+    width: 80%;
+    max-width: 400px;
+    border: 1px solid #eaeaea;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+}
+
+.search-bar input:focus {
+    border-color: #ff0000;
+}
+
+.filter-section {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.filter-section select, 
+.filter-section input {
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #eaeaea;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+}
+
+.filter-section select:focus, 
+.filter-section input:focus {
+    border-color: #ff0000;
+}
+
+/* Slick slider styles */
+.slick-slider {
+    margin: 20px auto;
+    width: 90%;
+    max-width: 1200px;
+}
+
+.slick-slide img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.slick-prev, .slick-next {
+    color: #333333;
+    font-size: 2em;
+    transition: color 0.3s ease;
+}
+
+.slick-prev:hover, .slick-next:hover {
+    color: #ff0000;
+}
+
+/* Car list styles */
+.car-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+.car-card{
+    text-align: center;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    padding: 20px;
+    width: calc(33.333% - 20px);
+    box-sizing: border-box;
+    transition: box-shadow 0.3s ease;
+    cursor: pointer;
+}
+.car-card:hover{
+    transition: all 0.3 ease;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.product_information{
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    flex-wrap: wrap;
+    background-color: #f1eaea;
+    margin: 15px;
+    border-radius: 30px ;
+}
+.product{text-align: center;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    padding: 20px;
+    width: calc(33.333% - 20px);
+    box-sizing: border-box;
+    transition: box-shadow 0.3s ease;
+    cursor: pointer;}
+.car-item  {
+    text-align: center;
+    background-color: #ffffff;
+    border: 1px solid #000000;
+    border-radius: 10px;
+    padding: 20px;
+    width: calc(33.333% - 20px);
+    box-sizing: border-box;
+    transition: box-shadow 0.3s ease;
+    cursor: pointer;
+}
+.car-item:hover{
+    transition: all 0.3 ease;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.car-item img {
+    width: 100%;
+    border-radius: 10px;
+    
+}
+
+.car-details {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.car-details h3 {
+    font-size: 1.5em;
+    margin: 0 0 10px 0;
+}
+
+.car-details .price {
+    font-size: 1.2em;
+    color: #ff0000;
+    margin-bottom: 10px;
+}
+
+.boton-elegante {
+    background-color: #333333;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.boton-elegante:hover {
+    background-color: #ff0000;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #ffffff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #eaeaea;
+    width: 80%;
+    max-width: 600px;
+    border-radius: 10px;
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000000;
+    text-decoration: none;
+    cursor: pointer;
+}
+/* Footer styles */
+footer {
+    background-color: #333333;
+    color: #ffffff;
+    padding: 40px 0;
+    text-align: center;
+}
+
+footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+footer .footer-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.footer-section {
+    flex: 1;
+}
+
+.footer-section h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.footer-section p, .footer-section ul, .footer-section .contact {
+    font-size: 1em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: #ff0000;
+}
+
+.footer-section .contact span {
+    display: block;
+}
+
+.footer-section .socials a {
+    color: #ffffff;
+    margin-right: 10px;
+    font-size: 1.5em;
+    transition: color 0.3s ease;
+}
+
+.footer-section .socials a:hover {
+    color: #ff0000;
+}
+
+.contact-form .text-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #eaeaea;
+    border-radius: 5px;
+}
+
+.contact-form .btn {
+    background-color: #ff0000;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact-form .btn:hover {
+    background-color: #e60000;
+}
+
+.footer-bottom {
+    background-color: #222222;
+    padding: 10px 0;
+    text-align: center;
+    color: #cccccc;
+}

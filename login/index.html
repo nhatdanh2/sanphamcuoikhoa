@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Sales - Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyBp0mr6NBi5xm6i1JeWsOx5McBMPSVnJkA",
+            authDomain: "sanphamcuoikhoa-994d9.firebaseapp.com",
+            projectId: "sanphamcuoikhoa-994d9",
+            storageBucket: "sanphamcuoikhoa-994d9.appspot.com",
+            messagingSenderId: "371677702001",
+            appId: "1:371677702001:web:47efdedfdd6a753758b8d0"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.getElementById("signInButton").addEventListener("click", signIn);
+            document.getElementById("googleSignInButton").addEventListener("click", signInWithGoogle);
+        });
+
+        function signIn(event) {
+            event.preventDefault();
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    console.log('User signed in:', user);
+                    localStorage.setItem('userEmail', email);
+                    window.location.href = "../index.html";
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.error("Error signed in:", errorMessage);
+                    document.getElementById('login-error-message').innerText = errorMessage;
+                });
+        }
+
+        function signInWithGoogle(event) {
+            event.preventDefault();
+            const provider = new GoogleAuthProvider();
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    const user = result.user;
+                    console.log('User signed in with Google:', user);
+                    localStorage.setItem('userEmail', user.email);
+                    window.location.href = "../index.html";
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.error("Error signing in with Google:", errorMessage);
+                    document.getElementById('login-error-message').innerText = errorMessage;
+                });
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div id="login-container" class="login-container">
+            <form class="login-form">
+                <h2>Login</h2>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button id="signInButton" type="submit">Login</button>
+                <button id="googleSignInButton" type="button">Login with Google</button>
+                <p>Don't have an account? <a href="./index-2.html">Sign Up</a></p>
+                <p id="login-error-message" class="error-message"></p>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

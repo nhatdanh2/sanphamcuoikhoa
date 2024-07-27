@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ Hàng</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"/>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+    <link rel="stylesheet" href="../index.css">
+    <style>
+        .cart-item {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item img {
+            width: 100px;
+        }
+
+        .cart-item .details {
+            flex: 1;
+            margin-left: 20px;
+        }
+
+        .cart-item .actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-item .actions button {
+            margin: 0 5px;
+        }
+
+        .total {
+            font-weight: bold;
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .order-details {
+            margin-bottom: 20px;
+        }
+
+        .order-details img {
+            width: 50px;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+
+        .order-details p {
+            margin: 5px 0;
+        }
+
+        .order-summary {
+            margin-top: 20px;
+        }
+
+        .order-summary p {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Trang Web Cho Thuê Xe Ô Tô</h1>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">Trang Chủ</a></li>
+                    <li class="dropdown"><a class="dropbtn" href="#">Mua Xe</a>
+                        <div class="dropdown-content">
+                            <a href="#">Toyota</a>
+                        </div>
+                    </li>
+                    <li><a href="#">Bán Xe</a></li>
+                    <li><a href="cart.html">Giỏ Hàng</a></li>
+                    <li><a href="#">Liên Hệ</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropbtn">Tài Khoản</a>
+                        <div class="dropdown-content">
+                            <a href="./login/index.html">Đăng Nhập</a>
+                            <a href="./login/index-2.html">Đăng Ký</a>
+                        </div>
+                    </li>
+                    <li id="user-container" style="display: none;">
+                        <span style="color: white;" id="user-email"></span>
+                        <button id="logoutButton">Đăng xuất</button>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>Giỏ Hàng</h1>
+        <div id="cart"></div>
+        <div class="total">Tổng: <span id="totalPrice">0</span> VND</div>
+        <button onclick="clearCart()">Xóa toàn bộ giỏ hàng</button>
+        <button onclick="placeOrder()">Đặt Hàng</button>
+        <a href="index.html">Tiếp tục mua sắm</a>
+    </div>
+
+    <!-- Modal -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Chi Tiết Đơn Hàng</h2>
+            <div id="orderDetails"></div>
+            <div class="order-summary">
+                <p><strong>Tổng:</strong> <span id="orderTotalPrice">0</span> VND</p>
+            </div>
+            <button onclick="confirmOrder()">Xác Nhận Đặt Hàng</button>
+        </div>
+    </div>
+
+    <footer style=" margin-top: 250px;background-color: #222; color: #ccc; padding: 40px 0;">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section about">
+                    <h2>Về Chúng Tôi</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eleifend leo a augue tincidunt, at varius nisi mollis.</p>
+                    <div class="contact">
+                        <span><i class="fas fa-phone"></i> 0123 456 789</span>
+                        <span><i class="fas fa-envelope"></i> info@example.com</span>
+                    </div>
+                    <div class="socials">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section links">
+                    <h2>Liên Kết</h2>
+                    <ul>
+                        <li><a href="#">Trang Chủ</a></li>
+                        <li><a href="#">Dịch Vụ</a></li>
+                        <li><a href="#">Bảng Giá</a></li>
+                        <li><a href="#">Liên Hệ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section contact-form">
+                    <h2>Liên Hệ</h2>
+                    <form action="#" method="post">
+                        <input type="email" name="email" class="text-input contact-input" placeholder="Địa chỉ email...">
+                        <textarea name="message" class="text-input contact-input" placeholder="Nội dung tin nhắn..."></textarea>
+                        <button type="submit" class="btn btn-big contact-btn">
+                            <i class="fas fa-envelope"></i>
+                            Gửi
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom" style="background-color: #333; padding: 10px 0; text-align: center;">
+            © 2024 Trang Web Cho Thuê Xe Ô Tô. Tất cả các quyền được bảo lưu.
+        </div>
+    </footer>
+
+    <script>
+        function loadCart() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartDiv = document.getElementById('cart');
+            let total = 0;
+            cartDiv.innerHTML = '';
+            cart.forEach((item, index) => {
+                total += item.price * item.quantity;
+                cartDiv.innerHTML += `
+                    <div class="cart-item">
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="details">
+                            <h2>${item.name}</h2>
+                            <p>Giá: ${item.price} VND</p>
+                            <p>Số lượng: ${item.quantity}</p>
+                        </div>
+                        <div class="actions">
+                            <button onclick="updateQuantity(${index}, ${item.quantity - 1})">-</button>
+                            <button onclick="updateQuantity(${index}, ${item.quantity + 1})">+</button>
+                            <button onclick="removeFromCart(${index})">Xóa</button>
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('totalPrice').innerText = total;
+        }
+
+        function updateQuantity(index, quantity) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (quantity <= 0) {
+                cart.splice(index, 1);
+            } else {
+                cart[index].quantity = quantity;
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        function removeFromCart(index) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCart();
+        }
+
+        function clearCart() {
+            localStorage.removeItem('cart');
+            loadCart();
+        }
+
+        function placeOrder() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart.length === 0) {
+                alert('Giỏ hàng của bạn trống.');
+                return;
+            }
+
+            const orderDetailsDiv = document.getElementById('orderDetails');
+            orderDetailsDiv.innerHTML = '';
+            let total = 0;
+            cart.forEach(item => {
+                total += item.price * item.quantity;
+                orderDetailsDiv.innerHTML += `
+                    <div class="order-details">
+                        <img src="${item.image}" alt="${item.name}">
+                        <p>${item.name} - ${item.quantity} x ${item.price} VND</p>
+                    </div>
+                `;
+            });
+            document.getElementById('orderTotalPrice').innerText = total;
+
+            document.getElementById('orderModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('orderModal').style.display = 'none';
+        }
+
+        function confirmOrder() {
+            localStorage.removeItem('cart');
+            closeModal();
+            alert('Đơn hàng của bạn đã được đặt thành công!');
+            loadCart();
+        }
+
+        window.onload = loadCart;
+
+        // Đóng modal khi người dùng nhấp ra ngoài
+        window.onclick = function(event) {
+            var modal = document.getElementById("orderModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+         //Hàm tài khoán đăng nhập đăng xuất
+ document.addEventListener("DOMContentLoaded", function() {
+    const userEmail = localStorage.getItem('userEmail');
+    const userContainer = document.getElementById('user-container');
+    const userEmailSpan = document.getElementById('user-email');
+    const logoutButton = document.getElementById('logoutButton');
+    const accountMenu = document.querySelector('.dropdown');
+    const h1accounMenu=document.querySelector('.dropdown');
+    const dropdownAccount = document.getElementById('dropdown-account');
+
+    function updateUserUI() {
+        if (userEmail) {
+            userEmailSpan.textContent = userEmail;
+            userContainer.style.display = 'block';
+            dropdownAccount.style.display = 'none';
+            if (accountMenu) {
+                accountMenu.style.display = 'none';
+                h1accounMenu.style.display='none'
+            }
+        } else {
+            userContainer.style.display = 'none';
+            if (accountMenu) {
+                accountMenu.style.display = 'block';
+            }
+        }
+    }
+
+    logoutButton.addEventListener('click', function() {
+        localStorage.removeItem('userEmail');
+        updateUserUI();
+        alert('Đã đăng xuất');
+        window.location.href = './index.html';
+    });
+
+    // Placeholder login function for demonstration
+    // Replace this with actual login logic
+    function login(email) {
+        localStorage.setItem('userEmail', email);
+        updateUserUI();
+    }
+
+    // Simulate a login for demonstration purposes
+    // Call this function with the user's email when they log in
+    // login('user@example.com');
+
+    updateUserUI();
+});
+
+    </script>
+</body>
+</html>
